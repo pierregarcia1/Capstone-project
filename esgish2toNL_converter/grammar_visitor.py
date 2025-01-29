@@ -27,14 +27,14 @@ class QueryToEnglish(QueryVisitor):
 
 # Example usage
 from antlr4 import InputStream, CommonTokenStream
-from QueryLexer import QueryLexer
-from QueryParser import QueryParser
+from Esgish2GrammarLexer import Esgish2GrammarLexer
+from Esgish2GrammarParser import Esgish2GrammarParser
 
 query = "SELECT name, age FROM users WHERE age > 30;"
 input_stream = InputStream(query)
-lexer = QueryLexer(input_stream)
+lexer = Esgish2GrammarLexer(input_stream)
 token_stream = CommonTokenStream(lexer)
-parser = QueryParser(token_stream)
+parser = Esgish2GrammarParser(token_stream)
 tree = parser.query()
 
 translator = QueryToEnglish()
