@@ -3,7 +3,6 @@ from antlr4 import InputStream, CommonTokenStream
 from Esgish2GrammarLexer import Esgish2GrammarLexer
 from Esgish2GrammarParser import Esgish2GrammarParser
 
-
 class QueryToEnglish(Esgish2GrammarVisitor):
     def visitQuery(self, ctx: Esgish2GrammarParser.QueryContext):
         if ctx.singleFactorQuery():
@@ -22,17 +21,15 @@ class QueryToEnglish(Esgish2GrammarVisitor):
             return "Invalid query."
 
     def visitAndQuery(self, ctx: Esgish2GrammarParser.AndQueryContext):
-        elements = [self.visit(child) for child in ctx.getChildren() if isinstance(
-            child, Esgish2GrammarParser.GroupQueryElementContext)]
+        elements = [self.visit(child) for child in ctx.getChildren() if isinstance(child, Esgish2GrammarParser.GroupQueryElementContext)]
         elements = [e for e in elements if e is not None]
-
+        
         return " and ".join(elements)
 
     def visitOrQuery(self, ctx: Esgish2GrammarParser.OrQueryContext):
-        elements = [self.visit(child) for child in ctx.getChildren() if isinstance(
-            child, Esgish2GrammarParser.GroupQueryElementContext)]
+        elements = [self.visit(child) for child in ctx.getChildren() if isinstance(child, Esgish2GrammarParser.GroupQueryElementContext)]
         elements = [e for e in elements if e is not None]
-
+        
         return " or ".join(elements)
 
     def visitGroupQueryElement(self, ctx: Esgish2GrammarParser.GroupQueryElementContext):
@@ -43,6 +40,8 @@ class QueryToEnglish(Esgish2GrammarVisitor):
 
     def visitNumberOrStringQuery(self, ctx: Esgish2GrammarParser.NumberOrStringQueryContext):
         factor = ctx.FACTOR().getText()
+        
+        factor = factor.replace('[', '').replace(']', '')  
 
         operator = ctx.getText()
 
@@ -57,10 +56,13 @@ class QueryToEnglish(Esgish2GrammarVisitor):
 
         argument = ctx.ARG().getText() if ctx.ARG() else "Unknown value"
 
+        argument = argument.replace("'", "")
+        
         return f"{factor} {operator} {argument}"
 
 
-query = "AND([CannabisRevShareMax] < '1', AND([CannabisRevShareMax] < '1',  [CarbonRRPerformanceScore] > '3'))"
+
+query = "AND([CannabisRevShareMax] < '5', AND([CannabisRevShareMax] < '1',  [CarbonRRPerformanceScore] > '3'))"
 input_stream = InputStream(query)
 lexer = Esgish2GrammarLexer(input_stream)
 token_stream = CommonTokenStream(lexer)
