@@ -2,7 +2,6 @@ from source_files import Esgish2GrammarVisitor
 from antlr4 import InputStream, CommonTokenStream
 from Esgish2GrammarLexer import Esgish2GrammarLexer
 from Esgish2GrammarParser import Esgish2GrammarParser
-#new branch
 class QueryToEnglish(Esgish2GrammarVisitor):
     def visitQuery(self, ctx: Esgish2GrammarParser.QueryContext):
         columns = self.visit(ctx.columns())
