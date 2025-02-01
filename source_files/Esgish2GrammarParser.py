@@ -286,6 +286,12 @@ class Esgish2GrammarParser ( Parser ):
             if hasattr( listener, "exitStart" ):
                 listener.exitStart(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitStart" ):
+                return visitor.visitStart(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -367,6 +373,12 @@ class Esgish2GrammarParser ( Parser ):
             if hasattr( listener, "exitQuery" ):
                 listener.exitQuery(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitQuery" ):
+                return visitor.visitQuery(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -444,6 +456,12 @@ class Esgish2GrammarParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitWrappedQuery" ):
                 listener.exitWrappedQuery(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitWrappedQuery" ):
+                return visitor.visitWrappedQuery(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -538,6 +556,12 @@ class Esgish2GrammarParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitSingleFactorQuery" ):
                 listener.exitSingleFactorQuery(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitSingleFactorQuery" ):
+                return visitor.visitSingleFactorQuery(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -638,6 +662,12 @@ class Esgish2GrammarParser ( Parser ):
             if hasattr( listener, "exitBooleanQuery" ):
                 listener.exitBooleanQuery(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitBooleanQuery" ):
+                return visitor.visitBooleanQuery(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -698,6 +728,12 @@ class Esgish2GrammarParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitDateQuery" ):
                 listener.exitDateQuery(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitDateQuery" ):
+                return visitor.visitDateQuery(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -763,6 +799,12 @@ class Esgish2GrammarParser ( Parser ):
             if hasattr( listener, "exitFormulaQuery" ):
                 listener.exitFormulaQuery(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFormulaQuery" ):
+                return visitor.visitFormulaQuery(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -825,6 +867,12 @@ class Esgish2GrammarParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitNullTypeQuery" ):
                 listener.exitNullTypeQuery(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitNullTypeQuery" ):
+                return visitor.visitNullTypeQuery(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -899,6 +947,12 @@ class Esgish2GrammarParser ( Parser ):
             if hasattr( listener, "exitNumberOrStringQuery" ):
                 listener.exitNumberOrStringQuery(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitNumberOrStringQuery" ):
+                return visitor.visitNumberOrStringQuery(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -964,6 +1018,12 @@ class Esgish2GrammarParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitStringListQuery" ):
                 listener.exitStringListQuery(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitStringListQuery" ):
+                return visitor.visitStringListQuery(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1042,6 +1102,12 @@ class Esgish2GrammarParser ( Parser ):
             if hasattr( listener, "exitStringMapQuery" ):
                 listener.exitStringMapQuery(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitStringMapQuery" ):
+                return visitor.visitStringMapQuery(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1105,6 +1171,12 @@ class Esgish2GrammarParser ( Parser ):
             if hasattr( listener, "exitStringQuery" ):
                 listener.exitStringQuery(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitStringQuery" ):
+                return visitor.visitStringQuery(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1162,6 +1234,12 @@ class Esgish2GrammarParser ( Parser ):
             if hasattr( listener, "exitSavedQuery" ):
                 listener.exitSavedQuery(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitSavedQuery" ):
+                return visitor.visitSavedQuery(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1209,6 +1287,12 @@ class Esgish2GrammarParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitWrappedSavedQuery" ):
                 listener.exitWrappedSavedQuery(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitWrappedSavedQuery" ):
+                return visitor.visitWrappedSavedQuery(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1273,6 +1357,12 @@ class Esgish2GrammarParser ( Parser ):
             if hasattr( listener, "exitCustomScoreQuery" ):
                 listener.exitCustomScoreQuery(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitCustomScoreQuery" ):
+                return visitor.visitCustomScoreQuery(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1324,6 +1414,12 @@ class Esgish2GrammarParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitAndQuery" ):
                 listener.exitAndQuery(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAndQuery" ):
+                return visitor.visitAndQuery(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1394,6 +1490,12 @@ class Esgish2GrammarParser ( Parser ):
             if hasattr( listener, "exitOrQuery" ):
                 listener.exitOrQuery(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitOrQuery" ):
+                return visitor.visitOrQuery(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1460,6 +1562,12 @@ class Esgish2GrammarParser ( Parser ):
             if hasattr( listener, "exitNegatedQuery" ):
                 listener.exitNegatedQuery(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitNegatedQuery" ):
+                return visitor.visitNegatedQuery(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1523,6 +1631,12 @@ class Esgish2GrammarParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitGroupQueryElement" ):
                 listener.exitGroupQueryElement(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitGroupQueryElement" ):
+                return visitor.visitGroupQueryElement(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1654,6 +1768,12 @@ class Esgish2GrammarParser ( Parser ):
             if hasattr( listener, "exitFormula" ):
                 listener.exitFormula(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFormula" ):
+                return visitor.visitFormula(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1765,6 +1885,12 @@ class Esgish2GrammarParser ( Parser ):
             if hasattr( listener, "exitRatioFormula" ):
                 listener.exitRatioFormula(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitRatioFormula" ):
+                return visitor.visitRatioFormula(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1822,6 +1948,12 @@ class Esgish2GrammarParser ( Parser ):
             if hasattr( listener, "exitCoalesceFormula" ):
                 listener.exitCoalesceFormula(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitCoalesceFormula" ):
+                return visitor.visitCoalesceFormula(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1876,6 +2008,12 @@ class Esgish2GrammarParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitCaseCountFormula" ):
                 listener.exitCaseCountFormula(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitCaseCountFormula" ):
+                return visitor.visitCaseCountFormula(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1942,6 +2080,12 @@ class Esgish2GrammarParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitIfFormula" ):
                 listener.exitIfFormula(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitIfFormula" ):
+                return visitor.visitIfFormula(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2023,6 +2167,12 @@ class Esgish2GrammarParser ( Parser ):
             if hasattr( listener, "exitPersonCountFormula" ):
                 listener.exitPersonCountFormula(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitPersonCountFormula" ):
+                return visitor.visitPersonCountFormula(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2072,6 +2222,12 @@ class Esgish2GrammarParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitPercentileRankFormula" ):
                 listener.exitPercentileRankFormula(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitPercentileRankFormula" ):
+                return visitor.visitPercentileRankFormula(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2125,6 +2281,12 @@ class Esgish2GrammarParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitPercentileRankInCategoryFormula" ):
                 listener.exitPercentileRankInCategoryFormula(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitPercentileRankInCategoryFormula" ):
+                return visitor.visitPercentileRankInCategoryFormula(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2182,6 +2344,12 @@ class Esgish2GrammarParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitQuantileFormula" ):
                 listener.exitQuantileFormula(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitQuantileFormula" ):
+                return visitor.visitQuantileFormula(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2243,6 +2411,12 @@ class Esgish2GrammarParser ( Parser ):
             if hasattr( listener, "exitQuantileFormulaInCategoryFormula" ):
                 listener.exitQuantileFormulaInCategoryFormula(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitQuantileFormulaInCategoryFormula" ):
+                return visitor.visitQuantileFormulaInCategoryFormula(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2301,6 +2475,12 @@ class Esgish2GrammarParser ( Parser ):
             if hasattr( listener, "exitRankAscendingFormula" ):
                 listener.exitRankAscendingFormula(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitRankAscendingFormula" ):
+                return visitor.visitRankAscendingFormula(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2350,6 +2530,12 @@ class Esgish2GrammarParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitRankDescendingFormula" ):
                 listener.exitRankDescendingFormula(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitRankDescendingFormula" ):
+                return visitor.visitRankDescendingFormula(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2403,6 +2589,12 @@ class Esgish2GrammarParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitSumFormula" ):
                 listener.exitSumFormula(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitSumFormula" ):
+                return visitor.visitSumFormula(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2472,6 +2664,12 @@ class Esgish2GrammarParser ( Parser ):
             if hasattr( listener, "exitDifferenceFormula" ):
                 listener.exitDifferenceFormula(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitDifferenceFormula" ):
+                return visitor.visitDifferenceFormula(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2537,6 +2735,12 @@ class Esgish2GrammarParser ( Parser ):
             if hasattr( listener, "exitYearsSinceFormula" ):
                 listener.exitYearsSinceFormula(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitYearsSinceFormula" ):
+                return visitor.visitYearsSinceFormula(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2587,6 +2791,12 @@ class Esgish2GrammarParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitBooleanFormula" ):
                 listener.exitBooleanFormula(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitBooleanFormula" ):
+                return visitor.visitBooleanFormula(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 

@@ -1,17 +1,18 @@
-from source_files import QueryParser
-from QueryVisitor import QueryVisitor
-
-class QueryToEnglish(QueryVisitor):
-    def visitQuery(self, ctx: QueryParser.QueryContext):
+from source_files import Esgish2GrammarVisitor
+from antlr4 import InputStream, CommonTokenStream
+from Esgish2GrammarLexer import Esgish2GrammarLexer
+from Esgish2GrammarParser import Esgish2GrammarParser
+class QueryToEnglish(Esgish2GrammarVisitor):
+    def visitQuery(self, ctx: Esgish2GrammarParser.QueryContext):
         columns = self.visit(ctx.columns())
         table = ctx.table().getText()
         condition = self.visit(ctx.condition())
         return f"Retrieve {columns} from the {table} table where {condition}."
 
-    def visitColumns(self, ctx: QueryParser.ColumnsContext):
+    def visitColumns(self, ctx: Esgish2GrammarParser.ColumnsContext):
         return ', '.join([col.getText() for col in ctx.IDENTIFIER()])
 
-    def visitCondition(self, ctx: QueryParser.ConditionContext):
+    def visitCondition(self, ctx: Esgish2GrammarParser.ConditionContext):
         column = ctx.IDENTIFIER().getText()
         operator = ctx.OPERATOR().getText()
         value = ctx.value().getText()
@@ -26,9 +27,6 @@ class QueryToEnglish(QueryVisitor):
         return f"{column} {op_translation[operator]} {value}"
 
 # Example usage
-from antlr4 import InputStream, CommonTokenStream
-from Esgish2GrammarLexer import Esgish2GrammarLexer
-from Esgish2GrammarParser import Esgish2GrammarParser
 
 query = "SELECT name, age FROM users WHERE age > 30;"
 input_stream = InputStream(query)
