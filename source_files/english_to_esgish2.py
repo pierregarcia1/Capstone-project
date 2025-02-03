@@ -43,26 +43,16 @@ class EnglishToQuery:
 
         # Determine the operator and argument based on simple string comparison
         if "less than" in comparison:
-            operator = "less than"
             argument = comparison.replace("less than", "").strip()
+            return f"[{factor}] < '{argument}'"
         elif "greater than" in comparison:
-            operator = "greater than"
             argument = comparison.replace("greater than", "").strip()
+            return f"[{factor}] > '{argument}'"
         elif "equal to" in comparison:
-            operator = "equal to"
             argument = comparison.replace("equal to", "").strip()
+            return f"[{factor}] = '{argument}'"
         else:
             return "Invalid operator"
-
-        # Format the query based on the operator
-        if operator == "less than":
-            return f"[{factor}] < '{argument}'"
-        elif operator == "greater than":
-            return f"[{factor}] > '{argument}'"
-        elif operator == "equal to":
-            return f"[{factor}] = '{argument}'"
-        
-        return "Invalid operator"
 
     def visit(self, english_query):
         # Main entry point for translation from English to ESGish2
