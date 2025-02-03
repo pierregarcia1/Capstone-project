@@ -1,6 +1,26 @@
 import re
+from Esgish2GrammarVisitor import Esgish2GrammarVisitor
+from antlr4 import InputStream, CommonTokenStream
+from Esgish2GrammarLexer import Esgish2GrammarLexer
+from Esgish2GrammarParser import Esgish2GrammarParser
 
 class EnglishToQuery:
+    def visitQuery(self, ctx: Esgish2GrammarParser.QueryContext):
+        if ctx.singleFactorQuery():
+            return self.visit(ctx.singleFactorQuery())
+        elif ctx.andQuery():
+            return self.visit(ctx.andQuery())
+        elif ctx.orQuery():
+            return self.visit(ctx.orQuery())
+        elif ctx.negatedQuery():
+            return self.visit(ctx.negatedQuery())
+        elif ctx.savedQuery():
+            return self.visit(ctx.savedQuery())
+        elif ctx.customScoreQuery():
+            return self.visit(ctx.customScoreQuery())
+        else:
+            return "Invalid query."
+        
     def visitAndQuery(self, english_query):
         # Translate "X and Y" to "AND(X, Y)"
         parts = english_query.split(' and ')
@@ -41,7 +61,7 @@ class EnglishToQuery:
             return f"[{factor}] > '{argument}'"
         elif operator == "equal to":
             return f"[{factor}] = '{argument}'"
-
+        
         return "Invalid operator"
 
     def visit(self, english_query):
