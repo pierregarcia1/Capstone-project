@@ -5,22 +5,6 @@ from Esgish2GrammarLexer import Esgish2GrammarLexer
 from Esgish2GrammarParser import Esgish2GrammarParser
 
 class EnglishToQuery:
-    def visitQuery(self, ctx: Esgish2GrammarParser.QueryContext):
-        if ctx.singleFactorQuery():
-            return self.visit(ctx.singleFactorQuery())
-        elif ctx.andQuery():
-            return self.visit(ctx.andQuery())
-        elif ctx.orQuery():
-            return self.visit(ctx.orQuery())
-        elif ctx.negatedQuery():
-            return self.visit(ctx.negatedQuery())
-        elif ctx.savedQuery():
-            return self.visit(ctx.savedQuery())
-        elif ctx.customScoreQuery():
-            return self.visit(ctx.customScoreQuery())
-        else:
-            return "Invalid query."
-        
     def visitAndQuery(self, english_query):
         # Translate "X and Y" to "AND(X, Y)"
         parts = english_query.split(' and ')
@@ -33,7 +17,7 @@ class EnglishToQuery:
         esgish_parts = [self.visit(part.strip()) for part in parts]
         return f"OR({', '.join(esgish_parts)})"
 
-    def visitNumberOrStringQuery(self, english_query):
+    def visitComparisonQuery(self, english_query):
         parts = english_query.split(' is ')
         if len(parts) != 2:
             return "Invalid query format"
@@ -61,7 +45,7 @@ class EnglishToQuery:
         elif ' or ' in english_query:
             return self.visitOrQuery(english_query)
         else:
-            return self.visitNumberOrStringQuery(english_query)
+            return self.visitComparisonQuery(english_query)
 
 
 # Example English query
