@@ -5,6 +5,7 @@ from Esgish2GrammarParser import Esgish2GrammarParser
 
 class QueryToEnglish(Esgish2GrammarVisitor):
     def visitQuery(self, ctx: Esgish2GrammarParser.QueryContext):
+        """Visit different query types and return English translation."""
         if ctx.singleFactorQuery():
             return self.visit(ctx.singleFactorQuery())
         elif ctx.andQuery():
@@ -39,28 +40,24 @@ class QueryToEnglish(Esgish2GrammarVisitor):
         return self.visit(ctx.getChild(0))
 
     def visitNumberOrStringQuery(self, ctx: Esgish2GrammarParser.NumberOrStringQueryContext):
-        factor = ctx.FACTOR().getText()
+        factor = ctx.FACTOR().getText().replace('[', '').replace(']', '')  
+        operator = ctx.OP_ORDER().getText()
+        argument = ctx.ARG().getText().replace("'", "") if ctx.ARG() else "Unknown value"
+        ##factor = factor.replace('[', '').replace(']', '')  
+
+        operator_mapping = {
+            "<=": "is less than or equal to",
+            ">=": "is greater than or equal to",
+            "<": "is less than",
+            ">": "is greater than",
+            "==": "is equal to"
+        }
         
-        factor = factor.replace('[', '').replace(']', '')  
-
-        operator = ctx.getText()
-
-        if '<' in operator:
-            operator = "is less than"
-        elif '>' in operator:
-            operator = "is greater than"
-        elif '=' in operator:
-            operator = "is equal to"
-        else:
-            operator = "Unknown operator"
-
-        argument = ctx.ARG().getText() if ctx.ARG() else "Unknown value"
-
-        argument = argument.replace("'", "")
+        english_operator = operator_mapping.get(operator, "has an unknown relation to")
         
-        return f"{factor} {operator} {argument}"
+        return f"{factor} {english_operator} {argument}"
 
-query = "AND([CannabisRevShareMax] < '5', AND([CannabisRevShareMax] < '1',  [CarbonRRPerformanceScore] > '3'))"
+query = "AND([CannabisRevShareMax] == '5', AND([CannabisRevShareMax] >= '1',  [CarbonRRPerformanceScore] > '3'))"
 input_stream = InputStream(query)
 lexer = Esgish2GrammarLexer(input_stream)
 token_stream = CommonTokenStream(lexer)
