@@ -57,7 +57,7 @@ class QueryToEnglish(Esgish2GrammarVisitor):
         
         return f"{factor} {english_operator} {argument}"
 
-query = "AND([CannabisRevShareMax] == '5', AND([CannabisRevShareMax] >= '1',  [CarbonRRPerformanceScore] > '3'))"
+query = "AND([CannabisRevShareMax] <= '5', AND([CannabisRevShareMax] >= '1',  [CarbonRRPerformanceScore] > '3'))"
 input_stream = InputStream(query)
 lexer = Esgish2GrammarLexer(input_stream)
 token_stream = CommonTokenStream(lexer)
