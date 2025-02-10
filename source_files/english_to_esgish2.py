@@ -50,21 +50,29 @@ class EnglishToQuery:
             "not equal to": "!=",
             "less than": "<",
             "greater than": ">",
-            "equal to": "=="
+            "equal to": "==",
+            "contains any of": "ANY",
+            "contains none of": "NONE",
+            "contains all of": "ALL",
+            "is in": "IN",
+            "contains": "CTN",
+            "loosely contains": "LCTN",
+            "starts with": "STW"
         }
         # Ensure the longest matches are checked first to avoid partial matches
         for phrase in sorted(operator_mapping.keys(), key=len, reverse=True):  # Sort by length (longest first)
             if comparison.startswith(phrase):
-                argument = comparison[len(phrase):].strip() # Extract the numerical value
+                argument = comparison[len(phrase):].strip().strip("'") # Extract the numerical value
                 
                 # Handle missing values
                 if not argument:
                     return f"Error: Missing value after '{phrase}' in query '{english_query}'"
                 
-                # Ensure argument is a valid number
-                if not re.match(r'^-?\d+(\.\d+)?$', argument):
-                    return f"Error: Invalid number format '{argument}' in query '{english_query}'"
-
+                 # **Handle numeric values separately**
+                if operator_mapping[phrase] not in {"ANY", "NONE", "ALL", "IN", "CTN", "LCTN", "STW"}:
+                    if not re.match(r'^-?\d+(\.\d+)?$', argument):  # Validate as a number
+                        return f"Error: Invalid number format '{argument}' in query '{english_query}'"
+                    
                 # Convert to ESGish2 format
                 return f"[{factor}] {operator_mapping[phrase]} '{argument}'"
         return "Invalid operator"
@@ -84,7 +92,26 @@ class EnglishToQuery:
         return "Invalid query format"
 
 # Example English query
-english_query = "CannabisRevShareMax is less than or equal to 5 and CannabisRevShareMax is less than or equal to 1 and CarbonRRPerformanceScore is equal to 3"
+# english_query = "CannabisRevShareMax is less than or equal to 5 and CannabisRevShareMax is less than or equal to 1 and CarbonRRPerformanceScore is equal to 3"
+# translator = EnglishToQuery()
+# esgish_query = translator.visit(english_query)
+# print("ESGish2 Query: ", esgish_query)
+
+queries = [
+    "CannabisRevShareMax is less than or equal to 5 and CannabisRevShareMax is less than or equal to 1 and CarbonRRPerformanceScore is equal to 3",  # Example English query
+    "Sector is in 'Finance|Technology|Healthcare'",  # String-based IN
+    "CompanyName contains 'Apple'",                 # String-based CTN
+    "Industry loosely contains 'tech'",             # String-based LCTN
+    "Ticker starts with 'AAPL'",                    # String-based STW
+    "Revenue is greater than 1000",                 # Numeric comparison
+    "MarketCap is less than or equal to 500000",    # Numeric comparison
+    "RiskCategory contains any of 'High|Medium'",   # String-based ANY
+    "ESGScore contains none of 'Low|Very Low'",     # String-based NONE
+    "ClimatePolicy contains all of 'CarbonNeutral|NetZero'"  # String-based ALL
+]
+
 translator = EnglishToQuery()
-esgish_query = translator.visit(english_query)
-print("ESGish2 Query: ", esgish_query)
+
+for q in queries:
+    print(f"English: {q}")
+    print(f"ESGish2: {translator.visit(q)}\n")

@@ -85,7 +85,9 @@ class QueryToEnglish(Esgish2GrammarVisitor):
         return f"{factor} is {boolean_value.lower()}"
 
     def visitNullTypeQuery(self, ctx: Esgish2GrammarParser.NullTypeQueryContext):
+        #print("DEBUG: Entered visitNullTypeQuery")
         factor = ctx.FACTOR().getText().strip('[]')
+        #print(f"DEBUG: Factor = {factor}")
         return f"{factor} is null"
     
     def visitStringQuery(self, ctx: Esgish2GrammarParser.StringQueryContext): # visitStringQuery
@@ -158,12 +160,38 @@ string_equals_query = "[ClimateGHGReductionTargets] == 'No Target'" # Q 474
 number_equals_query = "[ClimateGHGReductionTargets] == '1.5'"       # Q 474 edited
 
 
-input_stream = InputStream(range2_query)
-lexer = Esgish2GrammarLexer(input_stream)
-token_stream = CommonTokenStream(lexer)
-parser = Esgish2GrammarParser(token_stream)
-tree = parser.query()
+# input_stream = InputStream(range2_query)
+# lexer = Esgish2GrammarLexer(input_stream)
+# token_stream = CommonTokenStream(lexer)
+# parser = Esgish2GrammarParser(token_stream)
+# tree = parser.query()
+
+# translator = QueryToEnglish()
+
+# print("Translated Query: ", translator.visit(tree))
+
+queries = {
+    "OR Query": query,
+    "IN Query": in_query,
+    "Greater Than Query": greater_query,
+    "Contains Query": contains_query,
+    "Boolean Query": boolean_query,
+    "Date Query": date_query,
+    "Null Query": null_query,
+    "Range Query": range_query,
+    "Range 2 Query": range2_query,
+    "String Equals Query": string_equals_query,
+    "Number Equals Query": number_equals_query
+}
 
 translator = QueryToEnglish()
 
-print("Translated Query: ", translator.visit(tree))
+for name, q in queries.items():
+    input_stream = InputStream(q)
+    lexer = Esgish2GrammarLexer(input_stream)
+    token_stream = CommonTokenStream(lexer)
+    parser = Esgish2GrammarParser(token_stream)
+    tree = parser.query()
+    
+    print(f"{name}: {translator.visit(tree)}\n")
+
